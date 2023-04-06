@@ -1,10 +1,10 @@
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/**,*/
+/**::before,*/
+/**::after {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
 
 img,
 picture {
@@ -24,12 +24,66 @@ html {
 }
 
 body {
-  background-color: #343a40;
   min-height: 100vh;
   line-height: 1.5;
-  text-transform: uppercase;
   position: relative;
+  display: grid;
+  place-content: center;
+  font-family: 'Roboto', sans-serif;
 }
+
+button {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 1rem;
+}
+
+.form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form > input {
+  width: 100%;
+}
+
+/* Text Utility */
+.text--center {
+  text-align: center;
+}
+
+
+.flex {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.flex--center {
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Remove animations for people who've turned them off */
 @media (prefers-reduced-motion: reduce) {
