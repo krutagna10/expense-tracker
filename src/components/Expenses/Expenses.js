@@ -1,48 +1,46 @@
-import ExpenseList from "../ExpenseList/ExpenseList";
-import { useContext, useState } from "react";
-import { ExpensesContext } from "../../context/ExpensesContext";
+import ExpensesContext from "../../context/ExpensesContext";
+import ExpensesList from "../ExpensesList/ExpensesList";
+import ExpensesFilter from "../ExpenseFilter/ExpensesFilter";
+import { useState, useContext } from "react";
 
-function Expenses({ onDeleteExpense }) {
+function Expenses() {
   const { expenses } = useContext(ExpensesContext);
+  const [sortBy, setSortBy] = useState("");
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortByAmount, setSortByAmount] = useState(false);
 
-  function handleSearchTermChange(event) {
-    setSearchTerm(event.target.value.toLowerCase());
+  function handleSearchTermChange(nextSearchTerm) {
+    setSearchTerm(nextSearchTerm);
   }
 
-  function handleSortByAmountChange(event) {
-    setSortByAmount(event.target.checked);
+  function handleSortByChange(nextSortBy) {
+    setSortBy(nextSortBy);
   }
 
-  let modifiedExpenses = expenses.filter((expense) => {
+  let filteredExpenses = expenses.filter((expense) => {
     return expense.title.toLowerCase().includes(searchTerm);
   });
 
-  if (sortByAmount) {
-    modifiedExpenses = modifiedExpenses.sort((expenseA, expenseB) => {
+  if (sortBy === "amount") {
+    filteredExpenses = [...filteredExpenses].sort((expenseA, expenseB) => {
       return expenseA.amount - expenseB.amount;
+    });
+  }
+
+  if (sortBy === "date") {
+    filteredExpenses = [...filteredExpenses].sort((expenseA, expenseB) => {
+      return expenseA.date - expenseB.date;
     });
   }
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Expenses List</h2>
-      <form className="flex flex--center">
-        <input
-          type="text"
-          placeholder="Search Expense..."
-          onChange={handleSearchTermChange}
-        />
-        <label>
-          Sort by Amount:{" "}
-          <input type="checkbox" onChange={handleSortByAmountChange} />
-        </label>
-      </form>
-      <ExpenseList
-        expenses={modifiedExpenses}
-        onDeleteExpense={onDeleteExpense}
+      <h2>Expenses List</h2>
+      <ExpensesFilter
+        onSearchTermChange={handleSearchTermChange}
+        onSortByChange={handleSortByChange}
       />
+      <ExpensesList expenses={filteredExpenses} />
     </div>
   );
 }

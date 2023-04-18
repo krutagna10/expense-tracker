@@ -1,6 +1,9 @@
-import { useState } from "react";
+import ExpensesContext from "../../context/ExpensesContext";
+import { useState, useContext } from "react";
 
-function ExpenseAdd({ onAddExpense }) {
+function ExpenseAdd() {
+  const { onAddExpense } = useContext(ExpensesContext);
+
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -14,19 +17,16 @@ function ExpenseAdd({ onAddExpense }) {
   }
 
   function handleDateChange(event) {
-    console.log(event.target.value);
     setDate(event.target.value);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    onAddExpense({
-      title: title,
-      amount: amount,
-      date: date,
-    });
+    // Calling onAddExpense with title, amount and date as parameters
+    onAddExpense(title, Number(amount), date);
 
+    // Resetting the values
     setTitle("");
     setAmount("");
     setDate("");
@@ -34,27 +34,23 @@ function ExpenseAdd({ onAddExpense }) {
 
   return (
     <>
-      <h2 className="text--center">Add Expense</h2>
-      <form
-        className="form"
-        onSubmit={handleSubmit}
-        style={{ marginBottom: "3rem" }}
-      >
+      <h2>Add Expense</h2>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
-          value={title}
+          placeholder="Title"
           onChange={handleTitleChange}
-          placeholder="Enter Title"
+          value={title}
           required
         />
         <input
-          type="number"
-          value={amount}
+          type="amount"
+          placeholder="Amount"
           onChange={handleAmountChange}
-          placeholder="Enter Amount"
+          value={amount}
           required
         />
-        <input type="date" value={date} onChange={handleDateChange} required />
+        <input type="date" onChange={handleDateChange} value={date} required />
         <button>Add Expense</button>
       </form>
     </>

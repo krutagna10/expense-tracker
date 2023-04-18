@@ -1,5 +1,11 @@
 import { createContext } from "react";
 
-const ExpensesContext = createContext(null);
+const ExpensesContext = createContext({
+  expenses: [],
+  onAddExpense: (title, amount, date) => {},
+  onEditExpense: (editedExpense) => {},
+  onDeleteExpense: (deleteId) => {},
+  onResetExpenses: () => {},
+});
 
-export { ExpensesContext };
+export default ExpensesContext;

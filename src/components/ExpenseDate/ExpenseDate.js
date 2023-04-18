@@ -1,4 +1,4 @@
-const getMonthName = {
+const monthObject = {
   0: "January",
   1: "February",
   2: "March",
@@ -13,16 +13,13 @@ const getMonthName = {
   11: "December",
 };
 
-function ExpenseDate({ date }) {
-  let day = date.getDate();
-  let month = getMonthName[date.getMonth()];
-  let year = date.getFullYear();
+function ExpenseDate({ expenseDate }) {
+  const date = expenseDate.getDate();
+  const month = monthObject[expenseDate.getMonth()];
+  const year = expenseDate.getFullYear();
+  const dateString = `${month} ${date}, ${year}`;
 
-  return (
-    <>
-      {month} {day}, {year}
-    </>
-  );
+  return <>{dateString}</>;
 }
 
 export default ExpenseDate;
