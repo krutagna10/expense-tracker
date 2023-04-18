@@ -23,8 +23,8 @@ function ExpensesFilter({ onSearchTermChange, onSortByChange }) {
       />
       <div className="flex flex--align-center">
         <h4>Sort By =></h4>
-        {arr.map((item) => (
-          <label>
+        {arr.map((item, index) => (
+          <label key={index}>
             {item.toUpperCase()}:{" "}
             <input
               type="radio"
